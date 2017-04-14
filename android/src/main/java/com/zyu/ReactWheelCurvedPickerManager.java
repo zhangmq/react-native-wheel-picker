@@ -94,6 +94,13 @@ public class ReactWheelCurvedPickerManager extends SimpleViewManager<ReactWheelC
         }
     }
 
+    @ReactProp(name="selectedHeight")
+    public void setSelectedHeight(ReactWheelCurvedPicker picker, int height) {
+        if (picker != null) {
+            picker.setSelectedHeight((int) PixelUtil.toPixelFromDIP(height));
+        }
+    }
+
     @Override
     public String getName() {
         return REACT_CLASS;

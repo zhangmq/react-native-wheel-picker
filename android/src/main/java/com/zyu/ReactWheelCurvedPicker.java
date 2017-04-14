@@ -28,6 +28,7 @@ public class ReactWheelCurvedPicker extends WheelCurvedPicker {
     private final EventDispatcher mEventDispatcher;
     private List<Integer> mValueData;
     private int selectedLineColor;
+    private int selectedHeight;
 
     public ReactWheelCurvedPicker(ReactContext reactContext) {
         super(reactContext);
@@ -62,8 +63,20 @@ public class ReactWheelCurvedPicker extends WheelCurvedPicker {
         //LinearGradient linearGradientShader = new LinearGradient(rectCurItem.left, rectCurItem.top, rectCurItem.right/2, rectCurItem.top, colorFrom, colorTo, Shader.TileMode.MIRROR);
         //paint.setShader(linearGradientShader);
 
-        canvas.drawLine(rectCurItem.left, rectCurItem.top, rectCurItem.right, rectCurItem.top, paint);
-        canvas.drawLine(rectCurItem.left, rectCurItem.bottom, rectCurItem.right, rectCurItem.bottom, paint);
+        Integer heightFix = rectCurItem.bottom - rectCurItem.top - selectedHeight;
+
+        canvas.drawLine(
+            rectCurItem.left, 
+            rectCurItem.top + heightFix / 2, 
+            rectCurItem.right, 
+            rectCurItem.top + heightFix / 2, 
+            paint);
+        canvas.drawLine(
+            rectCurItem.left, 
+            rectCurItem.bottom - heightFix / 2, 
+            rectCurItem.right, 
+            rectCurItem.bottom - heightFix / 2, 
+            paint);
     }
 
     @Override
@@ -75,6 +88,11 @@ public class ReactWheelCurvedPicker extends WheelCurvedPicker {
 
     public void setSelectedLineColor(int selectedLineColor) {
         this.selectedLineColor = selectedLineColor;
+        invalidate();
+    }
+
+    public void setSelectedHeight(int height) {
+        this.selectedHeight = height;
         invalidate();
     }
 
